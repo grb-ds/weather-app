@@ -1,0 +1,347 @@
+<!--
+ * javascript
+ *
+ * Weather APP
+ *
+ * coded by Giomayra Rosales
+ * started at 11/11/2020
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Weather APP</title>
+    <!-- FONTS-->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" />
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.css"/>
+    <link rel="stylesheet" href="./css/styleToolPrettier.css" />
+    <link rel="stylesheet" href="./css/style2.css" />
+    <!--  SCRIPT-->
+   <!-- <script src="module/Chart.js-2.9.4/dist/chart.js"></script>-->
+
+    <style>
+       .canvas2 {
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+        }
+    </style>
+</head>
+    <body>
+        <div class="body-content">
+            <!--common/header/-->
+            <header id="header" class="parallax-wrap">
+                <nav>
+                    <ul id="small-toolbar" class="parallax-toolbar nav-top">
+                        <li>
+                            <input type="input" id="cityName" name="Search your current city">
+                       </li>
+                        <li>
+                            <button type="button" id="search">Search</button>
+                        </li>
+                    </ul>
+                </nav>
+            </header>
+
+            <div id="hero-weather" class="parallax-image-wrap">
+                <div class="parallax-background-container">
+                    <div class="parallax-background-image"></div>
+                </div>
+                <div class="parallax-weather">
+                    <div>
+                        <span class="parallax-temp"></span><span class="parallax-temp-unit unit-temperature"></span>
+                    </div>
+                    <div class="parallax-weather-wrap2">
+                        <span class="parallax-weatherId icon1"></span><span class="parallax-overview"></span>
+                    </div>
+                </div>
+                <div id="large-toolbar" class="parallax-toolbar-bottom">
+                    <h1 id="large-title" class="large-title"></h1>
+                </div>
+                <div class="weaphoto-article"></div>
+            </div>
+
+            <!--Option modal/-->
+         <!--   <div class="popup" id="modal-searchKeyword">
+                <div class="keyWrap">
+                    <div class="keyword-wrap">
+                        <div class="icon2 icon-search input-icon2"></div>
+                        <input placeholder="Discover Beautiful weather" value="" type="text" class="input-keyZ input-keywordX smpkeyword" data-url="/en/searchAjax" id="inputKeywordSp">
+                            <div class="key-delete"></div>
+                            <div class="side-menu-close-wrap-2" id="searchKeyClose"><div class="side-menu-close"></div></div>
+                    </div>
+                    <div class="popSearchResult">
+                        <ol class="search-result-lists">
+                        </ol>
+                    </div>
+                    <div class="gps-history-wrap">
+                        <div class="search-history" data-url="/en/nowlocationHistory">
+                            <ol class="search-history-lists">
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" id="gps-name" name="Search your current location">
+            </div>-->
+            <!--/Option modal-->
+            <!--wow! modal/-->
+            <div class="popup" id="popupmodal-nowlocation">
+                <div class="popup-wrap">
+                    <div class="popup-wrap2">
+                        <div class="modal-normal">
+                            <h3>Search for weather in your current location by GPS</h3>
+                            <div class="width-wrap2" style="position:relative;">
+                                <div id="nowlocation" class="submit4" name="/nowlocation">Search</div>
+                            </div>
+                            <!--GR COMMENTED-->
+                           <!-- <div id="popcancel" class="modal-link-button">Close</div>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--/wow! modal-->
+            <!--/common/header-->
+
+            <input type="hidden" id="weatherAjax" data-type="" data-locale="en" data-weather-type="wowarea" data-weaUrl="EU_BE_VLG" data-unit-temperature="Celsius" data-unit-distance="km" data-unit-speed="m/s" data-unit-pressure="hPa" data-unit-hour="24H" data-key="jSK7VXyUPgYdLQnn7Hrz23icCNn69PctxnIJgfHp" data-week="">
+
+                <section class="weather-parallax-wrap">
+
+                    <div id="current-weather" class="parallax-con-wrap">
+                        <article class="weather-overview wrap-shadow">
+                            <h2>Today weather</h2>
+                            <div>
+                                <span class="">Max</span>
+                                <span class="max focusTempMax"></span>
+                                <span class="">Min</span>
+                                <span class="min focusTempMin"></span>
+                            </div>
+                            <div class="des-wrap">
+                                <span class="icon1 focusWeatherId"></span>
+                                <span class="des focusWeatherText"></span>
+                            </div>
+
+                            <div class="place-name">Flanders</div>
+                            <div class="wow-wrap " id="wowcity" name="2800931"><div class="icon1 icon-bookmark"></div></div>
+                            <div class="weather-update">Fri, Dec. 4 5:40</div>
+                        </article>
+                        <article id="one-current-weather" class="weather-currently wrap-shadow">
+                            <h2>Current weather</h2>
+                            <div class="gr-flex3">
+                                <div>
+                                    <span class="focus icon1 icon-aptemperature"></span>
+                                    <h3><span class="wea-des">Apparent Temp.</span><span class="wea-val cu_1"></span><span class="wea-unit unit-temperature"></span></h3>
+                                </div>
+                                <div>
+                                    <span class="focus icon1 icon-rainvolume"></span>
+                                    <h3><span class="wea-des">Precip Intensity</span><span class="wea-val cu_2"></span><span class="wea-unit unit-rain"></span></h3>
+                                </div>
+                                <div>
+                                    <span class="focus icon1 icon-clouds"></span>
+                                    <h3><span class="wea-des">Cloud cover</span><span class="wea-val cu_3"></span><span class="wea-unit unit-percent"></span></h3>
+                                </div>
+                                <div>
+                                    <span class="focus icon1 icon-humidity"></span>
+                                    <h3><span class="wea-des">Humidity</span><span class="wea-val cu_4"></span><span class="wea-unit unit-percent"></span></h3>
+                                </div>
+                                <div>
+                                    <span class="focus icon1 icon-dew-point"></span>
+                                    <h3><span class="wea-des">Dew point</span><span class="wea-val cu_5"></span><span class="wea-unit unit-temperature"></span></h3>
+                                </div>
+                                <div>
+                                    <span class="focus icon1 icon-pressure"></span>
+                                    <h3><span class="wea-des">Pressure</span><span class="wea-val cu_6"></span><span class="wea-unit unit-pressure"></span></h3>
+                                </div>
+                                <div>
+                                    <span class="focus icon1 icon-wind-2"></span>
+                                    <h3><span class="wea-des">Wind</span><span class="parallax-arrow icon1 icon-wind"></span><span class="wea-val cu_7 margin-left1"></span><span class="wea-unit unit-speed"></span></h3>
+                                </div>
+                                <div class="uvIndex-wrap">
+                                    <span class="focus icon1 icon-sun"></span>
+                                    <h3><span class="wea-des">UV index</span><span class="wea-val cu_8"></span><span class="wea-unit unit-uvindex"></span></h3>
+                                </div>
+                                <div class="visibility-wrap">
+                                    <span class="focus icon1 icon-visibility"></span>
+                                    <h3><span class="wea-des">Visibility</span><span class="wea-val cu_9"></span><span class="wea-unit unit-visibility"></span></h3>
+                                </div>
+                                <div class="null-wrap"></div>
+                            </div>
+                        </article>
+                    </div>
+                    <article class="weather-common-wrap wrap-shadow">
+                        <h2>48-hour weather<span class="weather24-more" id="modal-weather-detail" data-weather-detail-modal="">See more<span class="icon1 icon-up"></span></span></h2>
+                        <div class="gr-wide">
+                            <!--GR COMMENTED -->
+                           <!-- <table class="wea-table" cellspacing="0">
+                                <tr>
+                                    <td colspan="24" class="canvasTempZWrap">
+                                        <div id="canvasTempZ" class="canvasgraph"></div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="hourTemp0"></th>
+                                    <th class="hourTemp1"></th>
+                                    <th class="hourTemp2"></th>
+                                    <th class="hourTemp3"></th>
+                                    <th class="hourTemp4"></th>
+                                    <th class="hourTemp5"></th>
+                                    <th class="hourTemp6"></th>
+                                    <th class="hourTemp7"></th>
+                                    <th class="hourTemp8"></th>
+                                    <th class="hourTemp9"></th>
+                                    <th class="hourTemp10"></th>
+                                    <th class="hourTemp11"></th>
+                                    <th class="hourTemp12"></th>
+                                    <th class="hourTemp13"></th>
+                                    <th class="hourTemp14"></th>
+                                    <th class="hourTemp15"></th>
+                                    <th class="hourTemp16"></th>
+                                    <th class="hourTemp17"></th>
+                                    <th class="hourTemp18"></th>
+                                    <th class="hourTemp19"></th>
+                                    <th class="hourTemp20"></th>
+                                    <th class="hourTemp21"></th>
+                                    <th class="hourTemp22"></th>
+                                    <th class="hourTemp23"></th>
+                                </tr>
+                            </table>-->
+                            <canvas id="canvas1" class="canvas1"></canvas>
+                        </div>
+                    </article>
+
+                    <div class="parallax-con-wrap">
+                        <article class="weather-rain wrap-shadow">
+                            <h2>Week weather</h2>
+<!--                            <table class="wea-table3" cellspacing="0">
+                                <tr>
+                                    <td>
+                                        <div id="canvasRainZ" class="canvasgraph2"></div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="hourRain"></th>
+                                </tr>
+                            </table>-->
+                            <canvas id="canvas3" class="canvas1"></canvas>
+                        </article>
+
+                        <article class="weather-weekly wrap-shadow">
+                            <h2>Flanders 1 week weather</h2>
+                            <div class="gr-wide4">
+                                <!--GR COMMENTED-->
+                                <!--<table class="weekly-graph-table wea-table4" cellspacing="0">
+                                    <tr>
+                                        <td class="weeklink_0 weekly-graph-td" data-weekly-link="/EU_BE_VLG/today">
+                                            <div class="weekly-line"></div>
+                                            <div class="weekly-rain-bar0 weekly-rain-bar-wrap"></div>
+                                            <div class="weekly-graph-wrap">
+                                                <div class="weekly-graph-bar0"></div>
+                                                <div class="weekly-graph-value0 weekly-graph-value-wrap"><div><span class="weekly-temp-max0 weekly-temp-max-wrap"></span><span class="weekly-temp-min0 weekly-temp-min-wrap"></span></div></div>
+                                            </div>
+                                        </td>
+                                        <td class="weeklink_1 weekly-graph-td" data-weekly-link="/EU_BE_VLG/tomorrow">
+                                            <div class="weekly-line"></div>
+                                            <div class="weekly-rain-bar1 weekly-rain-bar-wrap"></div>
+                                            <div class="weekly-graph-wrap">
+                                                <div class="weekly-graph-bar1"></div>
+                                                <div class="weekly-graph-value1 weekly-graph-value-wrap"><div><span class="weekly-temp-max1 weekly-temp-max-wrap"></span><span class="weekly-temp-min1 weekly-temp-min-wrap"></span></div></div>
+                                            </div>
+                                        </td>
+                                        <td class="weeklink_2 weekly-graph-td" data-weekly-link="/EU_BE_VLG/week_Sunday">
+                                            <div class="weekly-line"></div>
+                                            <div class="weekly-rain-bar2 weekly-rain-bar-wrap"></div>
+                                            <div class="weekly-graph-wrap">
+                                                <div class="weekly-graph-bar2"></div>
+                                                <div class="weekly-graph-value2 weekly-graph-value-wrap"><div><span class="weekly-temp-max2 weekly-temp-max-wrap"></span><span class="weekly-temp-min2 weekly-temp-min-wrap"></span></div></div>
+                                            </div>
+                                        </td>
+                                        <td class="weeklink_3 weekly-graph-td" data-weekly-link="/EU_BE_VLG/week_Monday">
+                                            <div class="weekly-line"></div>
+                                            <div class="weekly-rain-bar3 weekly-rain-bar-wrap"></div>
+                                            <div class="weekly-graph-wrap">
+                                                <div class="weekly-graph-bar3"></div>
+                                                <div class="weekly-graph-value3 weekly-graph-value-wrap"><div><span class="weekly-temp-max3 weekly-temp-max-wrap"></span><span class="weekly-temp-min3 weekly-temp-min-wrap"></span></div></div>
+                                            </div>
+                                        </td>
+                                        <td class="weeklink_4 weekly-graph-td" data-weekly-link="/EU_BE_VLG/week_Tuesday">
+                                            <div class="weekly-line"></div>
+                                            <div class="weekly-rain-bar4 weekly-rain-bar-wrap"></div>
+                                            <div class="weekly-graph-wrap">
+                                                <div class="weekly-graph-bar4"></div>
+                                                <div class="weekly-graph-value4 weekly-graph-value-wrap"><div><span class="weekly-temp-max4 weekly-temp-max-wrap"></span><span class="weekly-temp-min4 weekly-temp-min-wrap"></span></div></div>
+                                            </div>
+                                        </td>
+                                        <td class="weeklink_5 weekly-graph-td" data-weekly-link="/EU_BE_VLG/week_Wednesday">
+                                            <div class="weekly-line"></div>
+                                            <div class="weekly-rain-bar5 weekly-rain-bar-wrap"></div>
+                                            <div class="weekly-graph-wrap">
+                                                <div class="weekly-graph-bar5"></div>
+                                                <div class="weekly-graph-value5 weekly-graph-value-wrap"><div><span class="weekly-temp-max5 weekly-temp-max-wrap"></span><span class="weekly-temp-min5 weekly-temp-min-wrap"></span></div></div>
+                                            </div>
+                                        </td>
+                                        <td class="weeklink_6 weekly-graph-td" data-weekly-link="/EU_BE_VLG/week_Thursday">
+                                            <div class="weekly-line"></div>
+                                            <div class="weekly-rain-bar6 weekly-rain-bar-wrap"></div>
+                                            <div class="weekly-graph-wrap">
+                                                <div class="weekly-graph-bar6"></div>
+                                                <div class="weekly-graph-value6 weekly-graph-value-wrap"><div><span class="weekly-temp-max6 weekly-temp-max-wrap"></span><span class="weekly-temp-min6 weekly-temp-min-wrap"></span></div></div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="weekly-rain0 weekly-rain-wrap"></td>
+                                        <td class="weekly-rain1 weekly-rain-wrap"></td>
+                                        <td class="weekly-rain2 weekly-rain-wrap"></td>
+                                        <td class="weekly-rain3 weekly-rain-wrap"></td>
+                                        <td class="weekly-rain4 weekly-rain-wrap"></td>
+                                        <td class="weekly-rain5 weekly-rain-wrap"></td>
+                                        <td class="weekly-rain6 weekly-rain-wrap"></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="weekly-colomun0"><a href="/EU_BE_VLG/today">Fri 4</a></th>
+                                        <th class="weekly-colomun1"><a href="/EU_BE_VLG/tomorrow">Sat 5</a></th>
+                                        <th class="weekly-colomun2"><a href="/EU_BE_VLG/week_Sunday">Sun 6</a></th>
+                                        <th class="weekly-colomun3"><a href="/EU_BE_VLG/week_Monday">Mon 7</a></th>
+                                        <th class="weekly-colomun4"><a href="/EU_BE_VLG/week_Tuesday">Tue 8</a></th>
+                                        <th class="weekly-colomun5"><a href="/EU_BE_VLG/week_Wednesday">Wed 9</a></th>
+                                        <th class="weekly-colomun6"><a href="/EU_BE_VLG/week_Thursday">Thu 10</a></th>
+                                    </tr>
+                                </table>-->
+                                <canvas id="canvas2" class="canvas2"></canvas>
+                                <button id="randomizeData">Randomize Data</button>
+                            </div>
+                        </article>
+                    </div>
+
+
+
+                </section>
+
+
+
+        </div>
+
+
+       <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+
+       <!-- <script  type="text/javascript" src="https://www.jsdelivr.com/package/npm/chart.js?path=dist"></script>-->
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.bundle.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.bundle.min.js"></script>
+      <!--  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js@2.22.2/dist/moment.min.js"></script>-->
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+        <script type="text/javascript" src="https://www.chartjs.org/samples/latest/utils.js"></script>
+      <!--  <script type="module" src="./js/apiweather.js"></script>-->
+        <script  type="module" src="./js/script3.js"></script>
+    </body>
+</html>
+
+
+
+
+
