@@ -491,7 +491,7 @@ const displayItemCurrentData = (itemData) =>{
     return new Promise(resolve => {
         try {
             console.log(itemData);
-            let src = "http://openweathermap.org/img/wn/";
+            let src = "https://openweathermap.org/img/wn/";
             let srcExt = "@4x.png";
             let targetElement = document.querySelector("#one-current-weather");
            // let iconNode = document.createElement("img");
@@ -539,7 +539,7 @@ const displayItemDataWeather = (itemData) =>{
     return new Promise(resolve => {
         try {
             console.log(itemData);
-            let src = "http://openweathermap.org/img/wn/";
+            let src = "https://openweathermap.org/img/wn/";
             let srcExt = "@4x.png";
             let targetElement = document.querySelector("#current-weather");
             let iconNode = document.createElement("img");
@@ -568,7 +568,7 @@ const displayItemDataWeather = (itemData) =>{
 const displayItemDataHero = (itemData) =>{
     return new Promise(resolve => {
         console.log(itemData);
-        let src = "http://openweathermap.org/img/wn/";
+        let src = "https://openweathermap.org/img/wn/";
         let srcExt = "@4x.png";
         let targetElement = document.querySelector("#hero-weather");
         let iconNode = document.createElement("img");
@@ -598,7 +598,7 @@ const displayItemDataHero = (itemData) =>{
  * @param All parameters are requerided
  */
 const forecast5ByCityNameRequest = async (cityName) => {
-    const basePathAPI = "http://api.openweathermap.org";
+    const basePathAPI = "https://api.openweathermap.org";
     const keyAPI = "fecb38509801841509434bd9c74070e8";
     let units = "metric";
     let path = `${basePathAPI}/data/2.5/forecast?q=${cityName}&units=${units}&appid=${keyAPI}`;
@@ -612,7 +612,7 @@ const forecast5ByCityNameRequest = async (cityName) => {
  * @param All parameters are requerided
  */
 const oneCallAPIRequest = async (latitude,longitude) => {
-    const basePathAPI = "http://api.openweathermap.org";
+    const basePathAPI = "https://api.openweathermap.org";
     const keyAPI = "fecb38509801841509434bd9c74070e8";
     let units = "metric";
     let path = `${basePathAPI}/data/2.5/onecall?lat=${latitude}&lon=${longitude}&units=${units}&exclude=minutely,alerts&appid=${keyAPI}`;
